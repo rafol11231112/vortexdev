@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevStack | Full-Stack Developer</title>
+    
+    <!-- Security Meta Tags -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com 'unsafe-inline'">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+    
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/planet-loader.css">
+    <link rel="stylesheet" href="styles/bitcoin-card.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Advanced Website Protection -->
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable text selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable drag and drop
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable copy and cut
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable developer tools shortcut
+        document.addEventListener('keydown', function(e) {
+            // Prevent F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (
+                e.keyCode === 123 || // F12
+                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I or Ctrl+Shift+J
+                (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // Warning message when attempting to view source
+        window.addEventListener('devtoolschange', function(e) {
+            if (e.detail.open) {
+                document.body.innerHTML = '<div style="width:100%;height:100vh;display:flex;justify-content:center;align-items:center;background:#000;color:#ff0000;font-size:24px;text-align:center;">Unauthorized access detected.<br>This site is protected.</div>';
+            }
+        });
+    </script>
+    
+    <!-- DevTools Detection -->
+    <script>
+        (function() {
+            function detectDevTools() {
+                const widthThreshold = window.outerWidth - window.innerWidth > 160;
+                const heightThreshold = window.outerHeight - window.innerHeight > 160;
+                
+                if (widthThreshold || heightThreshold) {
+                    document.body.innerHTML = '<div style="width:100%;height:100vh;display:flex;justify-content:center;align-items:center;background:#000;color:#ff0000;font-size:24px;text-align:center;">Unauthorized access detected.<br>This site is protected.</div>';
+                }
+            }
+            
+            setInterval(detectDevTools, 1000);
+        })();
+    </script>
+    
+    <!-- Content Protection Watermark -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function createWatermark() {
+                const watermarks = document.querySelectorAll('.content-watermark');
+                if (watermarks.length > 0) return;
+                
+                const watermark = document.createElement('div');
+                watermark.className = 'content-watermark';
+                watermark.style.position = 'fixed';
+                watermark.style.top = '0';
+                watermark.style.left = '0';
+                watermark.style.width = '100%';
+                watermark.style.height = '100%';
+                watermark.style.zIndex = '1000';
+                watermark.style.pointerEvents = 'none';
+                watermark.style.userSelect = 'none';
+                
+                // Create watermark pattern
+                for (let i = 0; i < 5; i++) {
+                    for (let j = 0; j < 10; j++) {
+                        const mark = document.createElement('div');
+                        mark.textContent = 'VORTEX';
+                        mark.style.position = 'absolute';
+                        mark.style.left = (10 + j * 20) + '%';
+                        mark.style.top = (20 + i * 15) + '%';
+                        mark.style.transform = 'rotate(-45deg)';
+                        mark.style.color = 'rgba(255, 0, 0, 0.03)';
+                        mark.style.fontSize = '16px';
+                        mark.style.fontWeight = 'bold';
+                        mark.style.letterSpacing = '2px';
+                        watermark.appendChild(mark);
+                    }
+                }
+                
+                document.body.appendChild(watermark);
+            }
+            
+            // Create watermark
+            createWatermark();
+            
+            // Recreate watermark if it's removed
+            setInterval(createWatermark, 2000);
+        });
+    </script>
+    
+    <!-- Image Protection -->
+    <style>
+        img {
+            pointer-events: none;
+            -webkit-user-drag: none;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        body * {
+            position: relative;
+        }
+        
+        /* Add pseudo-element overlay to prevent screen capture tools */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            pointer-events: none;
+            z-index: 1000000;
+        }
+        
+        /* Anti-Inspect CSS */
+        html {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Strong protection warning */
+        body::after {
+            content: "PROTECTED SITE - DO NOT COPY";
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 8px;
+            color: rgba(255, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 10000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Add correct structure for animated background -->
+    <div class="particle-background"></div>
+    <div class="animated-background">
+        <div class="dot-container"></div>
+    </div>
+
+    <!-- Planet Loader -->
+    <div id="planet-loader">
+        <div class="planet-container">
+            <div class="planet"></div>
+            <div class="glowing-ring"></div>
+            <div class="orbit orbit-1">
+                <div class="dot top-dot"></div>
+                <div class="dot right-dot"></div>
+                <div class="dot bottom-dot"></div>
+                <div class="dot left-dot"></div>
+            </div>
+            <div class="orbit orbit-2">
+                <div class="dot diagonal-dot-1"></div>
+                <div class="dot diagonal-dot-2"></div>
+                <div class="dot diagonal-dot-3"></div>
+                <div class="dot diagonal-dot-4"></div>
+            </div>
+            <div class="orbit orbit-3">
+                <div class="dot top-dot"></div>
+                <div class="dot right-dot"></div>
+                <div class="dot bottom-dot"></div>
+                <div class="dot left-dot"></div>
+            </div>
+            <div class="orbit orbit-4">
+                <div class="dot diagonal-dot-1"></div>
+                <div class="dot diagonal-dot-3"></div>
+            </div>
+        </div>
+
+        <div class="title">vortex</div>
+        <div class="subtitle">PORTFOLIO</div>
+
+        <div class="loader-circle">
+            <div class="loader-text" id="loading-text">0%</div>
+        </div>
+    </div>
+
+    <!-- Bitcoin Card (Removed from here) -->
+    
+    <!-- Navigation -->
+    <header>
+        <div class="logo">
+            <a href="index.html"><span>&lt;Vor</span>tex/&gt;</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#about" class="nav-link"><i class="fas fa-user-alt"></i> About</a></li>
+                <li><a href="#projects" class="nav-link"><i class="fas fa-code-branch"></i> Projects</a></li>
+                <li><a href="#profiles" class="nav-link"><i class="fas fa-id-card"></i> Profiles</a></li>
+                <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="#" class="hire-btn">Hire Me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="terminal-btn red"></span>
+                    <span class="terminal-btn yellow"></span>
+                    <span class="terminal-btn green"></span>
+                </div>
+                <div class="terminal-title">developer@crypto-portfolio ~</div>
+            </div>
+            <div class="terminal-body">
+                <div class="line">$ npm run init-developer</div>
+                <div class="line">> Loading developer profile...</div>
+                <div class="line">> Initializing blockchain connections...</div>
+                <div class="line">> Connecting to crypto networks...</div>
+                
+                <div class="developer-intro">
+                    <h1>Vortex</h1>
+                    <p class="role"><span>Full-Stack Developer</span></p>
+                    <p class="tagline">I build <span class="highlight">innovative</span> web applications, 
+                        <span class="highlight">crypto tools</span>, and 
+                        <span class="highlight">automation</span> systems.</p>
+                </div>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn primary">View Projects <i class="fas fa-chevron-right"></i></a>
+                    <a href="#contact" class="btn secondary">Contact Me</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-stack">
+            <!-- Cryptocurrency Cards Stack -->
+            <!-- Bitcoin Card -->
+            <div class="tech-card crypto-card" id="bitcoin-card-container" data-crypto="bitcoin">
+                <div class="bitcoin-card crypto-card-inner">
+                    <div class="card-inner">
+                        <div class="card-glow"></div>
+                        <div class="bitcoin-logo">
+                            <div class="coin-face">
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" role="img" viewBox="0 0 24 24" height="80" width="80" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23.638 14.904c-1.602 6.43-8.113 10.34-14.542 8.736C2.67 22.05-1.244 15.525.362 9.105 1.962 2.67 8.475-1.243 14.9.358c6.43 1.605 10.342 8.115 8.738 14.548v-.002zm-6.35-4.613c.24-1.59-.974-2.45-2.64-3.03l.54-2.153-1.315-.33-.525 2.107c-.345-.087-.705-.167-1.064-.25l.526-2.127-1.32-.33-.54 2.165c-.285-.067-.565-.132-.84-.2l-1.815-.45-.35 1.407s.975.225.955.236c.535.136.63.486.615.766l-1.477 5.92c-.075.166-.24.406-.614.314.015.02-.96-.24-.96-.24l-.66 1.51 1.71.426.93.242-.54 2.19 1.32.327.54-2.17c.36.1.705.19 1.05.273l-.51 2.154 1.32.33.545-2.19c2.24.427 3.93.257 4.64-1.774.57-1.637-.03-2.58-1.217-3.196.854-.193 1.5-.76 1.68-1.93h.01zm-3.01 4.22c-.404 1.64-3.157.75-4.05.53l.72-2.9c.896.23 3.757.67 3.33 2.37zm.41-4.24c-.37 1.49-2.662.735-3.405.55l.654-2.64c.744.18 3.137.524 2.75 2.084v.006z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="coin-name">Bitcoin</h3>
+                            <div class="coin-price">$61,245.78</div>
+                            <div class="coin-change">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="up-arrow">
+                                    <path d="m5 12 7-7 7 7"></path>
+                                    <path d="M12 19V5"></path>
+                                </svg>
+                                <span>+5.8% (24h)</span>
+                            </div>
+                        </div>
+                        <div class="card-decoration">
+                            <div class="decoration-dot dot-1"></div>
+                            <div class="decoration-dot dot-2"></div>
+                            <div class="card-chip"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ethereum Card -->
+            <div class="tech-card crypto-card" id="ethereum-card-container" data-crypto="ethereum">
+                <div class="ethereum-card crypto-card-inner">
+                    <div class="card-inner">
+                        <div class="card-glow"></div>
+                        <div class="bitcoin-logo">
+                            <div class="coin-face eth-face">
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="80" width="80" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="coin-name">Ethereum</h3>
+                            <div class="coin-price">$3,487.12</div>
+                            <div class="coin-change">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="up-arrow">
+                                    <path d="m5 12 7-7 7 7"></path>
+                                    <path d="M12 19V5"></path>
+                                </svg>
+                                <span>+3.2% (24h)</span>
+                            </div>
+                        </div>
+                        <div class="card-decoration">
+                            <div class="decoration-dot dot-1"></div>
+                            <div class="decoration-dot dot-2"></div>
+                            <div class="card-chip"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- USDT Card -->
+            <div class="tech-card crypto-card" id="usdt-card-container" data-crypto="usdt">
+                <div class="usdt-card crypto-card-inner">
+                    <div class="card-inner">
+                        <div class="card-glow"></div>
+                        <div class="bitcoin-logo">
+                            <div class="coin-face usdt-face">
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="80" width="80" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 448c-105.9 0-192-86.1-192-192S150.1 64 256 64s192 86.1 192 192-86.1 192-192 192zm0-272c-44.2 0-80 35.8-80 80v16c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-16c0-44.2-35.8-80-80-80z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="coin-name">USDT</h3>
+                            <div class="coin-price">$1.00</div>
+                            <div class="coin-change">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="up-arrow">
+                                    <path d="m5 12 7-7 7 7"></path>
+                                    <path d="M12 19V5"></path>
+                                </svg>
+                                <span>+0.01% (24h)</span>
+                            </div>
+                        </div>
+                        <div class="card-decoration">
+                            <div class="decoration-dot dot-1"></div>
+                            <div class="decoration-dot dot-2"></div>
+                            <div class="card-chip"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <div class="about-text">
+                <p>I'm a passionate developer with expertise in building complex web applications, API integrations, modern frontends, and scalable backends. My focus is on creating intuitive interfaces backed by reliable infrastructure.</p>
+                
+                <p>With a strong background in full-stack development, I specialize in creating solutions that solve real-world problems and provide value to users. I'm constantly exploring new technologies and methodologies to improve my craft.</p>
+                
+                <h2 class="tech-stack-title">My Tech Stack</h2>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-900/30 text-blue-300 border border-blue-700/30">React</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-green-900/30 text-green-300 border border-green-700/30">Node.js</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-900/30 text-yellow-300 border border-yellow-700/30">JavaScript</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-purple-900/30 text-purple-300 border border-purple-700/30">Python</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-red-900/30 text-red-300 border border-red-700/30">AWS</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-indigo-900/30 text-indigo-300 border border-indigo-700/30">SQL/NoSQL</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-teal-900/30 text-teal-300 border border-teal-700/30">Docker</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-pink-900/30 text-pink-300 border border-pink-700/30">TypeScript</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-orange-900/30 text-orange-300 border border-orange-700/30">API Integration</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-cyan-900/30 text-cyan-300 border border-cyan-700/30">Crypto/Blockchain</span>
+                </div>
+            </div>
+            <div class="dev-profile">
+                <div class="code-panel">
+                    <div class="text-lg text-gray-300 font-mono">
+                        <div><span class="text-primary">const</span> developer = {</div>
+                        <div class="pl-4">name: <span class="text-accent">'Alex Mitchell'</span>,</div>
+                        <div class="pl-4">role: <span class="text-accent">'Full-Stack Developer'</span>,</div>
+                        <div class="pl-4">loves: [<span class="text-accent">'coding'</span>, <span class="text-accent">'crypto'</span>, <span class="text-accent">'automation'</span>],</div>
+                        <div class="pl-4">experience: <span class="text-secondary">5</span> + <span class="text-accent">'years'</span></div>
+                        <div>};</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <h2 class="section-title">My Projects</h2>
+        <p class="section-desc">A showcase of my recent work and ongoing development projects.</p>
+        
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="project-tags">
+                    <span class="tag highlight-tag">React</span>
+                    <span class="tag highlight-tag">Node.js</span>
+                </div>
+                <h3>Code Analyzer</h3>
+                <p>Automated code analysis and optimization tool for JavaScript that identifies and fixes common bugs, style issues, and performance bottlenecks.</p>
+                <div class="project-links">
+                    <a href="#" class="btn">View Details <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="btn-outline">Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">API</span>
+                    <span class="tag">WebSockets</span>
+                </div>
+                <h3>Market Pulse</h3>
+                <p>Real-time financial data platform with live dashboards for monitoring market trends and investment opportunities with customizable alerts.</p>
+                <div class="project-links">
+                    <a href="#" class="btn">View Details <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="btn-outline">Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">Payment</span>
+                    <span class="tag">Security</span>
+                </div>
+                <h3>PayPortal</h3>
+                <p>Secure payment processor for online transactions with advanced fraud protection, encryption, and seamless integration capabilities.</p>
+                <div class="project-links">
+                    <a href="#" class="btn">View Details <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="btn-outline">Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            
+            <!-- Project 4 -->
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">Privacy</span>
+                    <span class="tag">Security</span>
+                </div>
+                <h3>DataGuard</h3>
+                <p>Browser fingerprint and data leak checker tool to enhance online privacy and security with real-time monitoring and alerts.</p>
+                <div class="project-links">
+                    <a href="#" class="btn">View Details <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="btn-outline">Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            
+            <!-- Project 5 -->
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">Productivity</span>
+                    <span class="tag">Teams</span>
+                </div>
+                <h3>TaskFlow</h3>
+                <p>Project management and task tracking system with workflow automation and team collaboration features for improved productivity.</p>
+                <div class="project-links">
+                    <a href="#" class="btn">View Details <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="btn-outline">Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            
+            <!-- Project 6 -->
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">Automation</span>
+                    <span class="tag">API</span>
+                </div>
+                <h3>AutoBot</h3>
+                <p>Task automation platform with customizable workflows, integrations with popular services, and scheduled execution capabilities.</p>
+                <div class="project-links">
+                    <a href="#" class="btn">View Details <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="btn-outline">Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Detail Section (Hidden by default, shown when a project is clicked) -->
+    <section id="project-detail" class="project-detail-section hidden">
+        <h2 id="detail-project-title">Market Pulse</h2>
+        <p class="detail-description">Real-time financial data platform with live dashboards for monitoring market trends and investment opportunities with customizable alerts.</p>
+        
+        <div class="detail-content">
+            <div class="detail-info">
+                <p>Market Pulse provides users with instant notifications for price movements, market anomalies, and trading opportunities across all major financial markets and exchanges.</p>
+                
+                <h3>Key Features</h3>
+                <ul class="feature-list">
+                    <li>Real-time data feeds with customizable thresholds</li>
+                    <li>Multi-exchange integration (NYSE, NASDAQ, International)</li>
+                    <li>Technical analysis indicators with signal generation</li>
+                    <li>Portfolio tracking and performance analytics</li>
+                    <li>Mobile notifications via app, SMS, and email</li>
+                </ul>
+                
+                <h3>Technologies Used</h3>
+                <div class="tech-tags detail-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">WebSockets</span>
+                    <span class="tag">Redis</span>
+                    <span class="tag">AWS Lambda</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+                
+                <div class="project-actions">
+                    <a href="#" class="btn">View Live Demo</a>
+                    <a href="#" class="btn-outline">Source Code <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            
+            <div class="detail-preview">
+                <div class="preview-window main-preview">
+                    <div class="preview-placeholder">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+                <div class="preview-thumbnails">
+                    <div class="preview-window small-preview">
+                        <div class="preview-placeholder">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </div>
+                    <div class="preview-window small-preview">
+                        <div class="preview-placeholder">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Online Profiles Section -->
+    <section id="profiles" class="profiles-section">
+        <h2>Online Profiles</h2>
+        <p class="section-desc">Find me across the web on these platforms.</p>
+        
+        <div class="profiles-grid">
+            <a href="#" class="profile-card">
+                <div class="profile-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div class="profile-details">
+                    <h3>GitHub</h3>
+                    <p>Open Source Contributions</p>
+                </div>
+                <div class="profile-link">
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+            </a>
+            
+            <a href="#" class="profile-card">
+                <div class="profile-icon">
+                    <i class="fab fa-stack-overflow"></i>
+                </div>
+                <div class="profile-details">
+                    <h3>Stack Overflow</h3>
+                    <p>Top Contributor</p>
+                </div>
+                <div class="profile-link">
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+            </a>
+            
+            <a href="#" class="profile-card">
+                <div class="profile-icon">
+                    <i class="fab fa-dev"></i>
+                </div>
+                <div class="profile-details">
+                    <h3>Dev.to</h3>
+                    <p>Technical Articles</p>
+                </div>
+                <div class="profile-link">
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+            </a>
+            
+            <a href="#" class="profile-card">
+                <div class="profile-icon">
+                    <i class="fab fa-linkedin"></i>
+                </div>
+                <div class="profile-details">
+                    <h3>LinkedIn</h3>
+                    <p>Professional Network</p>
+                </div>
+                <div class="profile-link">
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+            </a>
+            
+            <a href="#" class="profile-card">
+                <div class="profile-icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="profile-details">
+                    <h3>Twitter</h3>
+                    <p>Tech Updates & Thoughts</p>
+                </div>
+                <div class="profile-link">
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+            </a>
+            
+            <a href="#" class="profile-card">
+                <div class="profile-icon">
+                    <i class="fab fa-medium"></i>
+                </div>
+                <div class="profile-details">
+                    <h3>Medium</h3>
+                    <p>In-depth Articles</p>
+                </div>
+                <div class="profile-link">
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Get In Touch</h2>
+                <p>Have a project in mind or want to collaborate? I'd love to hear from you.</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <p>contact@vortex.dev</p>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-briefcase"></i>
+                        <p>Available for freelance and full-time opportunities</p>
+                    </div>
+                </div>
+                
+                <div class="social-profiles">
+                    <h3>SOCIAL PROFILES</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="6" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with Content Encryption Notice -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <a href="index.html"><span>&lt;Vor</span>tex/&gt;</a>
+            </div>
+            <p>&copy; 2023 Vortex. All rights reserved.</p>
+        </div>
+        <div class="encryption-notice">
+            This site uses advanced encryption and security measures. Unauthorized copying or access is prohibited.
+        </div>
+    </footer>
+
+    <!-- Custom Cursor Elements -->
+    <div class="custom-cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+        <div class="cursor-angle">&lt;|</div>
+    </div>
+
+    <!-- Custom Cursor JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            const cursorAngle = document.querySelector('.cursor-angle');
+            
+            // Update cursor position based on mouse movement
+            document.addEventListener('mousemove', function(e) {
+                // Main cursor
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                // Optional: Add slight delay for cursor outline (smoother effect)
+                setTimeout(() => {
+                    cursorOutline.style.left = '0';
+                    cursorOutline.style.top = '0';
+                }, 50);
+                
+                // Show cursor if it was hidden
+                cursor.style.opacity = '1';
+            });
+            
+            // Hide cursor when mouse leaves window
+            document.addEventListener('mouseout', function() {
+                cursor.style.opacity = '0';
+            });
+            
+            // Add active class on mouse down
+            document.addEventListener('mousedown', function() {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(0.9)';
+                cursorAngle.style.transform = 'translate(-50%, -50%) scale(0.9)';
+            });
+            
+            // Remove active class on mouse up
+            document.addEventListener('mouseup', function() {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorAngle.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+            
+            // Change cursor on clickable elements
+            const clickables = document.querySelectorAll('a, button, .tech-item, .project-card');
+            clickables.forEach(element => {
+                element.addEventListener('mouseover', function() {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorOutline.style.borderColor = 'rgba(255, 62, 62, 0.8)';
+                    cursorAngle.style.transform = 'translate(-50%, -50%) scale(1.2) rotate(90deg)';
+                });
+                
+                element.addEventListener('mouseout', function() {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorOutline.style.borderColor = 'rgba(255, 62, 62, 0.5)';
+                    cursorAngle.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
+                });
+            });
+        });
+    </script>
+
+    <!-- Load all scripts at the end for better performance -->
+    <script src="js/main.js"></script>
+    <script src="js/planet-loader.js"></script>
+    <script src="js/bitcoin-card.js"></script>
+    <script src="js/background-dots.js"></script>
+    <script src="js/site-protection.js"></script>
+
+    <!-- Additional Protection Scripts -->
+    <script>
+        // Add additional security layer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create security hash check
+            const securityHash = Array.from(navigator.userAgent)
+                .reduce((hash, char) => (hash << 5) - hash + char.charCodeAt(0), 0)
+                .toString(36);
+                
+            // Store security token
+            sessionStorage.setItem('security_token', securityHash);
+            
+            // Add protection monitor
+            setInterval(function() {
+                if (sessionStorage.getItem('security_token') !== securityHash) {
+                    // Security violation detected - page has been tampered with
+                    document.body.innerHTML = '<div style="width:100%;height:100vh;display:flex;justify-content:center;align-items:center;background:#000;color:#ff0000;font-size:24px;text-align:center;">SECURITY VIOLATION<br>This page has been tampered with.</div>';
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html> 
