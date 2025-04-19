@@ -1,0 +1,333 @@
+/* Card Stack Layout */
+.card-stack {
+  perspective: 1000px;
+  width: 250px;
+  height: 320px;
+  position: relative;
+}
+
+/* Crypto Cards */
+.crypto-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 320px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease, z-index 0s 0.3s;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 80px rgba(255, 30, 80, 0.15);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 100, 120, 0.2);
+}
+
+/* Card positioning in the stack */
+#bitcoin-card-container {
+  z-index: 3;
+  transform: translate(0, 0) rotateY(0) scale(1);
+}
+
+#ethereum-card-container {
+  z-index: 2;
+  transform: translate(-25px, -15px) rotateY(-8deg) scale(0.97);
+  opacity: 0.9;
+}
+
+#usdt-card-container {
+  z-index: 1;
+  transform: translate(-50px, -30px) rotateY(-16deg) scale(0.94);
+  opacity: 0.8;
+}
+
+/* Active card state */
+.crypto-card.active {
+  z-index: 3;
+  transform: translate(0, 0) rotateY(0) scale(1);
+  opacity: 1;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 120px rgba(255, 30, 80, 0.25);
+}
+
+/* Card colors and designs */
+.bitcoin-card {
+  background: linear-gradient(135deg, #f59f00, #f0b429, #fbbf24, #f59f00);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 100px rgba(255, 165, 0, 0.3);
+}
+
+.ethereum-card {
+  background: linear-gradient(135deg, #627eea, #3c5fe0, #3c5fe0, #627eea);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 100px rgba(98, 126, 234, 0.3);
+}
+
+.usdt-card {
+  background: linear-gradient(135deg, #26a17b, #1a9a6e, #1a9a6e, #26a17b);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 100px rgba(38, 161, 123, 0.3);
+}
+
+/* Ethereum specific styles */
+.eth-face svg {
+  background: #627eea;
+  color: white;
+}
+
+.eth-face::before {
+  background: radial-gradient(circle, rgba(98, 126, 234, 0.8), rgba(98, 126, 234, 0) 70%);
+}
+
+/* USDT specific styles */
+.usdt-face svg {
+  background: #26a17b;
+  color: white;
+}
+
+.usdt-face::before {
+  background: radial-gradient(circle, rgba(38, 161, 123, 0.8), rgba(38, 161, 123, 0) 70%);
+}
+
+/* Bitcoin Logo Styling */
+.bitcoin-logo {
+  margin-bottom: 16px;
+  transform-style: preserve-3d;
+  transform: translateZ(20px);
+  width: 80px;
+  height: 80px;
+  animation: floatLogo 4s ease-in-out infinite;
+  transition: transform 0.5s ease;
+  position: relative;
+  perspective: 1000px;
+}
+
+.coin-face {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  animation: coinShine 4s ease-in-out infinite;
+}
+
+.coin-face svg {
+  background: #f0b429;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 20px rgba(255, 220, 0, 0.8));
+  box-shadow: 0 0 30px rgba(234, 179, 8, 0.4);
+  color: #000;
+  padding: 2px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Coin glow effect */
+.coin-face::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: radial-gradient(circle, rgba(234, 179, 8, 0.8), rgba(234, 179, 8, 0) 70%);
+  border-radius: 50%;
+  filter: blur(4px);
+  opacity: 0.5;
+  z-index: 1;
+  transform: translateZ(-1px);
+}
+
+/* Add rotation on hover */
+.crypto-card:hover .coin-face {
+  transform: rotateY(180deg);
+  transition: transform 1.2s ease;
+}
+
+/* Animation */
+@keyframes coinShine {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes floatLogo {
+  0%, 100% { 
+    transform: translateZ(20px) translateY(0); 
+  }
+  50% { 
+    transform: translateZ(20px) translateY(-10px); 
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { 
+    filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.5)); 
+  }
+  50% { 
+    filter: drop-shadow(0 0 25px rgba(234, 179, 8, 0.8)); 
+  }
+}
+
+@keyframes floatCard {
+  0%, 100% { 
+    transform: translateY(0); 
+  }
+  50% { 
+    transform: translateY(-8px); 
+  }
+}
+
+.card-content {
+  text-align: center;
+  transform: translateZ(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.coin-name {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #f0b429;
+  margin-bottom: 8px;
+}
+
+.coin-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.coin-change {
+  font-size: 0.875rem;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.up-arrow {
+  margin-right: 4px;
+}
+
+.card-decoration {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+}
+
+.decoration-dot {
+  position: absolute;
+  bottom: 16px;
+  border-radius: 50%;
+  transform: translateZ(15px);
+}
+
+.dot-1 {
+  left: 16px;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(234, 179, 8, 0.2);
+}
+
+.dot-2 {
+  left: 44px;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(234, 179, 8, 0.1);
+}
+
+.card-chip {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  background-color: rgba(234, 179, 8, 0.05);
+  transform: translateZ(15px);
+}
+
+/* Card hover effect */
+#bitcoin-card-container:hover .bitcoin-card {
+  transform: scale(1.05) rotateX(5deg) rotateY(-5deg);
+}
+
+#bitcoin-card-container:hover .card-glow {
+  opacity: 0.5;
+}
+
+/* Animation for price update */
+@keyframes priceUpdate {
+  0% {
+    transform: translateY(0) translateZ(20px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px) translateZ(20px);
+    opacity: 0;
+  }
+  51% {
+    transform: translateY(10px) translateZ(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) translateZ(20px);
+    opacity: 1;
+  }
+}
+
+.price-update {
+  animation: priceUpdate 1s ease;
+}
+
+.crypto-card-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  background-color: #0a0a15;
+  border-radius: 14px;
+}
+
+.card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(234, 179, 8, 0.15), transparent 70%);
+  filter: blur(20px);
+  opacity: 0.3;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Ethereum glow */
+.ethereum-card .card-glow {
+  background: radial-gradient(circle at center, rgba(98, 126, 234, 0.15), transparent 70%);
+}
+
+/* USDT glow */
+.usdt-card .card-glow {
+  background: radial-gradient(circle at center, rgba(38, 161, 123, 0.15), transparent 70%);
+} 
